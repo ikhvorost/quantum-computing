@@ -1,6 +1,7 @@
 # Quantum Computing
 
-## Grover Search Tool
+## Grover Search Tool 
+[![Build Status](https://travis-ci.org/ikhvorost/quantum-computing.svg?branch=master)](https://travis-ci.org/ikhvorost/quantum-computing)
 
 It's a command line tool that implements [Grover's algorithm](https://en.wikipedia.org/wiki/Grover%27s_algorithm) of quantum search. The script is written on [python](https://www.python.org/) and uses [Qiskit](https://qiskit.org/). Many params allow to test the algorithm with various values and to run on different quantum backends such as simulators or real cloud quantum proccessors.
 
