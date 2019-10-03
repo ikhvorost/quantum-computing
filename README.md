@@ -2,7 +2,7 @@
 
 ## Grover Search Tool
 
-It's a command line tool that implements [Grover's algorithm](https://en.wikipedia.org/wiki/Grover%27s_algorithm) of quantum search. The script is written on python and uses Qiskit. Many params allow to test the algorithm with various values and to run on different quantum backends such as simulators or real cloud quantum proccessors.
+It's a command line tool that implements [Grover's algorithm](https://en.wikipedia.org/wiki/Grover%27s_algorithm) of quantum search. The script is written on [python](https://www.python.org/) and uses [Qiskit](https://qiskit.org/). Many params allow to test the algorithm with various values and to run on different quantum backends such as simulators or real cloud quantum proccessors.
 
 **Usage Help:**
 ```console
