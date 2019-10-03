@@ -6,9 +6,9 @@ It's a command line tool that implements [Grover's algorithm](https://en.wikiped
 
 **Usage Help:**
 ```console
-$ python3 grover-search-tool.py --help
+$ python3 grover.py --help
 Grover's Search Algorithm Tool v.1.0
-usage:	python3 grover-search-tool.py -n 128 -p IBMQ -b ibmq_qasm_simulator -s 100
+usage:	python3 grover.py -n 128 -p IBMQ -b ibmq_qasm_simulator -s 100
 -h, --help:	Print this help message and exit
 -n, --number:	Number of items
 -o, --oracle:	Oracle number
@@ -24,7 +24,7 @@ usage:	python3 grover-search-tool.py -n 128 -p IBMQ -b ibmq_qasm_simulator -s 10
 
 **Run with default params:**
 ```console
-$ python3 grover-search-tool.py
+$ python3 grover.py
 Grover's Search Algorithm Tool v.1.0
 Params: N = 4, Oracle = 3, Backend = Aer/qasm_simulator, Shots = 10
 Quantum circuit: 4 qubits, 1 iteration(s)
@@ -35,13 +35,13 @@ c_qb_0: |0>┤ H ├───────■──┤ H ├┤ X ├──■─
 c_qb_1: |0>┤ H ├───────■──┤ H ├┤ X ├──■──┤ X ├┤ H ├─╫─┤M├
            └───┘       │  └───┘└───┘  │  └───┘└───┘ ║ └╥┘
 a_qb_0: |0>────────────┼──────────────┼─────────────╫──╫─
-           ┌───┐┌───┐┌─┴─┐          ┌─┴─┐           ║  ║ 
+           ┌───┐┌───┐┌─┴─┐          ┌─┴─┐           ║  ║
 t_qb_0: |0>┤ X ├┤ H ├┤ X ├──────────┤ X ├───────────╫──╫─
-           └───┘└───┘└───┘          └───┘           ║  ║ 
+           └───┘└───┘└───┘          └───┘           ║  ║
   c_b_0: 0 ═════════════════════════════════════════╩══╬═
-                                                       ║ 
+                                                       ║
   c_b_1: 0 ════════════════════════════════════════════╩═
-                                                         
+
 Executing...
 (0) JobStatus.DONE
 Answer: 3, State: '11', 10 times
