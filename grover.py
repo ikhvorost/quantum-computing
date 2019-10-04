@@ -17,6 +17,7 @@ def params():
     oracle = 3
     provider_name = "Aer"
     backend_name = "qasm_simulator"
+    token = None
     shots = 10
     draw = True
 
@@ -36,7 +37,7 @@ def params():
                 "\n-d, --draw:\tDraw a generated quantum circuit" \
 
         try:
-            opts, args = getopt.getopt(sys.argv[1:], "hn:o:p:b:s:d", ["help", "number=", "oracle=", "provider=", "backend=", "shots=", "draw"])
+            opts, args = getopt.getopt(sys.argv[1:], "hn:o:p:b:t:s:d", ["help", "number=", "oracle=", "provider=", "backend=", "token=", "shots=", "draw"])
         except getopt.GetoptError:
             print(help)
             exit()
@@ -56,6 +57,8 @@ def params():
                     provider_name = arg
                 elif opt in ("-b", "--backend"):
                     backend_name = arg
+                elif opt in ("-t", "--token"):
+                    token = arg
                 elif opt in ("-s", "--shots"):
                     shots = int(arg)
                 elif opt in ("-d", "--draw"):
@@ -66,10 +69,10 @@ def params():
                 print("Error: Oracle is equal or greater than N!")
                 exit()
 
-    Params = namedtuple('Params', 'N oracle provider_name backend_name shots draw')
-    return Params(N, oracle, provider_name, backend_name, shots, draw)
+    Params = namedtuple('Params', 'N oracle provider_name backend_name token shots draw')
+    return Params(N, oracle, provider_name, backend_name, token, shots, draw)
 
-def search(N, oracle, provider_name, backend_name, shots, draw):
+def search(N, oracle, provider_name, backend_name, token, shots, draw):
     print("Grover's Search Algorithm Tool v.{}".format(__version__))
     print("Params: N = {}, Oracle = {}, Backend = {}/{}, Shots = {}".format(N, oracle, provider_name, backend_name, shots))
 
@@ -139,9 +142,16 @@ def search(N, oracle, provider_name, backend_name, shots, draw):
         backend = Aer.get_backend(backend_name)
     # IBMQ
     elif provider_name == "IBMQ":
-        #IBMQ.save_account('MY_API_TOKEN')
-        IBMQ.load_account()
-        backend = IBMQ.get_provider().get_backend(backend_name)
+        account = IBMQ.stored_account()
+        if bool(account):
+            provider = IBMQ.load_account()
+        else:
+            if token:
+                provider = IBMQ.enable_account(token)
+            else:
+                print("Token is not provided!")
+                exit()
+        backend = provider.get_backend(backend_name)
 
     # Execute the quantum circuit on the qasm simulator
     print("Executing...")
@@ -180,4 +190,4 @@ def search(N, oracle, provider_name, backend_name, shots, draw):
 
 if __name__ == "__main__":
     params = params()
-    search(params.N, params.oracle, params.provider_name, params.backend_name, params.shots, params.draw)
+    search(params.N, params.oracle, params.provider_name, params.backend_name, params.token, params.shots, params.draw)
