@@ -9,7 +9,7 @@ from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, 
 from qiskit.providers.jobstatus import JobStatus, JOB_FINAL_STATES
 
 # Version
-__version__ = "1.0"
+__version__ = "1.1"
 
 def params():
     # Default params
