@@ -146,7 +146,7 @@ def search(N, oracle, provider_name, backend_name, token, shots, draw):
         if bool(account):
             provider = IBMQ.load_account()
         else:
-            if token:
+            if bool(token):
                 provider = IBMQ.enable_account(token)
             else:
                 print("Token is not provided!")
