@@ -33,6 +33,7 @@ def params():
                 "\n-b, --backend:\tBackend name" \
                     "\n\tAer - qasm_simulator, qasm_simulator_py, statevector_simulator, statevector_simulator_py, unitary_simulator, clifford_simulator" \
                     "\n\tIBMQ - ibmq_qasm_simulator, ibmq_16_melbourne, ibmq_ourense, ibmqx2, ibmq_vigo" \
+                "\n-t, --token:\tIBMQ API token" \
                 "\n-s, --shots:\tNumber of repetitions of a quantum circuit" \
                 "\n-d, --draw:\tDraw a generated quantum circuit" \
 
