@@ -3,7 +3,7 @@
 ## Grover Search Tool 
 [![Build Status](https://travis-ci.org/ikhvorost/quantum-computing.svg?branch=master)](https://travis-ci.org/ikhvorost/quantum-computing)
 
-It's a command line tool that implements [Grover's algorithm](https://en.wikipedia.org/wiki/Grover%27s_algorithm) of quantum search. The script is written on [python](https://www.python.org/) and uses [Qiskit](https://qiskit.org/). Many params allow to test the algorithm with various values and to run on different quantum backends such as simulators or real cloud quantum proccessors.
+It's a command line tool that implements [Grover's algorithm](https://en.wikipedia.org/wiki/Grover%27s_algorithm) of quantum search. The script is written on [python](https://www.python.org/) and uses [Qiskit](https://qiskit.org/). Many params allow to test the algorithm with various values and to run on different backends such as a local simulators or cloud [IBMQ](https://quantum-computing.ibm.com) quantum processors.
 
 **Usage Help:**
 ```console
@@ -51,7 +51,7 @@ Answer: 3, State: '11', 10 times
 
 **Run on a IBMQ cloud backend:**
 ```console
-python3 grover.py -n 4 -o 3 -p IBMQ -b ibmq_vigo -t <YOUR_API_TOKEN> -s 100
+$ python3 grover.py -n 4 -o 3 -p IBMQ -b ibmq_vigo -t <YOUR_API_TOKEN> -s 100
 Grover's Search Algorithm Tool v.1.1
 Params: N = 4, Oracle = 3, Backend = IBMQ/ibmq_vigo, Shots = 100
 Quantum circuit: 4 qubits, 1 iteration(s)
