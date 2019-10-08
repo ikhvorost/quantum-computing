@@ -20,6 +20,7 @@ def params():
     token = None
     shots = 10
     draw = True
+    file = None
 
     # Input params
     if len(sys.argv):
@@ -29,16 +30,16 @@ def params():
                 "\n-o, --oracle:\tOracle number" \
                 "\n-p, --provider:\tProvider (Aer|IBMQ)" \
                     "\n\tAer - Provides access to several simulators that are included with Qiskit and run on your local machine" \
-                    "\n\tIBMQ - implements access to cloud-based backends — simulators and real quantum devices — hosted on IBM Q" \
+                    "\n\tIBMQ - implements access to cloud-based backends — simulators and real quantum devices — hosted on IBMQ" \
                 "\n-b, --backend:\tBackend name" \
                     "\n\tAer - qasm_simulator, qasm_simulator_py, statevector_simulator, statevector_simulator_py, unitary_simulator, clifford_simulator" \
                     "\n\tIBMQ - ibmq_qasm_simulator, ibmq_16_melbourne, ibmq_ourense, ibmqx2, ibmq_vigo" \
                 "\n-t, --token:\tIBMQ API token" \
                 "\n-s, --shots:\tNumber of repetitions of a quantum circuit" \
-                "\n-d, --draw:\tDraw a generated quantum circuit" \
+                "\n-d, --draw:\tDraw a generated quantum circuit to the console or a file"
 
         try:
-            opts, args = getopt.getopt(sys.argv[1:], "hn:o:p:b:t:s:d", ["help", "number=", "oracle=", "provider=", "backend=", "token=", "shots=", "draw"])
+            opts, args = getopt.getopt(sys.argv[1:], "hn:o:p:b:t:s:d:", ["help", "number=", "oracle=", "provider=", "backend=", "token=", "shots=", "draw="])
         except getopt.GetoptError:
             print(help)
             exit()
@@ -64,16 +65,17 @@ def params():
                     shots = int(arg)
                 elif opt in ("-d", "--draw"):
                     draw = True
+                    file = arg
 
             # Errors
             if oracle >= N:
                 print("Error: Oracle is equal or greater than N!")
                 exit()
 
-    Params = namedtuple('Params', 'N oracle provider_name backend_name token shots draw')
-    return Params(N, oracle, provider_name, backend_name, token, shots, draw)
+    Params = namedtuple('Params', 'N oracle provider_name backend_name token shots draw file')
+    return Params(N, oracle, provider_name, backend_name, token, shots, draw, file)
 
-def search(N, oracle, provider_name, backend_name, token, shots, draw):
+def search(N, oracle, provider_name, backend_name, token, shots, draw, file):
     print("Grover's Search Algorithm Tool v.{}".format(__version__))
     print("Params: N = {}, Oracle = {}, Backend = {}/{}, Shots = {}".format(N, oracle, provider_name, backend_name, shots))
 
@@ -134,7 +136,12 @@ def search(N, oracle, provider_name, backend_name, token, shots, draw):
 
     # Draw quantum circuit
     if draw:
-        print(circuit)
+        if bool(file):
+            f = open(file, "w+")
+            print(circuit, file=f)
+            f.close()
+        else:
+            print(circuit)
 
     # Backend
 
@@ -191,4 +198,4 @@ def search(N, oracle, provider_name, backend_name, token, shots, draw):
 
 if __name__ == "__main__":
     params = params()
-    search(params.N, params.oracle, params.provider_name, params.backend_name, params.token, params.shots, params.draw)
+    search(params.N, params.oracle, params.provider_name, params.backend_name, params.token, params.shots, params.draw, params.file)
